@@ -8,7 +8,7 @@ Today I Learned
 ### 2월 
 
 * 강의 : Spring-core 기본, JPA 기본, JPA 활용1, (JPA 활용2), Spring-MVC1, (IntelliJ 가이드), (GoF의 디자인 패턴)
-* 책 : 토비의 스프링1, 쉽게 배우는 운영체제
+* 책 : 토비의 스프링1, 쉽게 배우는 운영체제, TCP/IP가 보이는 그림책, Clean Code
 
 ### 3월  
 
