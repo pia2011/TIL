@@ -22,3 +22,25 @@ Today I Learned
 
 ### 5월
 
+## 정리 우선순위 및 상황 (2/21 최신화)
+
+### 개발
+
+중요
+* Spring-core : 핵심이론 학습 완료 후 고급 넘어가서 쓰레드 처리 및 스프링 핵심 디자인패턴 배워야함
+* JPA 기본 : Spring-boot & JPA 병행 후 Spring Data JPA 및 QueryDSL 배워야함 
+* Spring-MVC : 기본 구조 및 기능 학습 후 추가 기능(필터, 예외처리, 검증, 세션 등) 배워야함
+* JPA-Spring boot : 완료 후 실무 적용을 위한 성능 튜닝 및 최적화 배워야함
+
+추가
+* GOF의 디자인 패턴
+* GITHUB 활용법
+* 리팩토링
+* IntelliJ 활용법
+
+
+### CS
+
+* OS
+* TCP/IP
+* HTTP
