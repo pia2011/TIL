@@ -7,7 +7,7 @@ Today I Learned
 
 ### 2월 
 
-* 강의 : Spring-core 기본, JPA 기본, JPA 활용1, (JPA 활용2), Spring-MVC1, (IntelliJ 가이드), (GoF의 디자인 패턴), (팀 개발을 위한 GIT,GITHUB), (리팩토링)
+* 강의 : Spring-core 기본, JPA 기본, JPA 활용1, (JPA 활용2), Spring-MVC1, (IntelliJ 가이드), (GoF의 디자인 패턴), (팀 개발을 위한 GIT,GITHUB), (리팩토링), (도커)
 * 책 : 토비의 스프링1, 쉽게 배우는 운영체제, TCP/IP가 보이는 그림책, Clean Code
 
 ### 3월  
@@ -17,7 +17,7 @@ Today I Learned
 
 ### 4월
 
-* 강의 : Spring-Security, Spring-batch, Spring-cloud, Doker, Kubernetes
+* 강의 : Spring-Security, Spring-batch, Spring-cloud
 * 책 : 토비의 스프링2
 
 ### 5월
@@ -33,6 +33,7 @@ Today I Learned
 * JPA-Spring boot : 완료 후 실무 적용을 위한 성능 튜닝 및 최적화 배워야함
 
 추가
+* 도커
 * GOF의 디자인 패턴
 * GITHUB 활용법
 * 리팩토링
