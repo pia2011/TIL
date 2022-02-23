@@ -192,12 +192,19 @@ public class JpaMain {
             Member member = new Member();
             member.setId(1L);
             member.setUserName("HelloA");
-            
+
+            em.persist(member);
+          
             // 조회 및 수정
             // Member findMember = em.find(Member.class, 1L);
             // findMember.setName("HelloJPA");
+          
+            // JPQL 활용
+            // List<Member> result = em.createQuery("select m from Member as m", Member.class).getResultList();
+            // for(Member member : result){
+            //    System.out.println("member.name = "+ member.getName());
+            // }
             
-            em.persist(member);
             
             tx.commit(); // DB에 쿼리 날림
         }catch(Exception e){
@@ -230,5 +237,131 @@ public class Member {
 * @Entity : JPA가 관리할 객체
 * @Id : 데이터베이스 PK와 매핑
 
+#### 주의할점
 
-## 영속성 관리 - 내부 동작 방식
+![image](https://user-images.githubusercontent.com/53935439/155351835-e07266ff-c4ae-475d-a227-3c1b55d41adc.png)
+
+* 앤티티 매니저 팩토리는 하나만 생성해서 애플리케이션 전체에서 공유해야 한다.
+* 앤티티 매니저는 쓰레드간에 공유하지 않고 사용 후 버려진다. (중요)
+* JPA의 모든 데이터 변경은 트랜잭션 안에서 실행된다. (중요)
+
+#### JPQL
+
+* 테이블이 아닌 객체를 대상으로 검색하는 객체 지향 쿼리
+* SQL을 추상화해서 특정 DB에 의존하지 않는다.
+
+JPA를 사용하면 엔티티 객체를 중심으로 개발하는데, 문제는 검색을 할 때에도 테이블이 아닌 엔티티 객체를 대상으로 검색을 진행한다.
+그런데 모든 DB 데이터를 객체로 변환해서 검색하는 것은 불가능하므로 필요한 데이터만 DB에서 불러오려면 결국 검색 조건이 포함된 SQL이 필요하고, 
+이떄 사용되는 것이 바로 JPQL이다.
+
+## 영속성 관리 - 내부 동작 방식 ★
+
+JPA에서 가장 중요한 두 가지를 뽑으라면 매핑(객체-RDB)과 영속성 컨택스트이다. 영속성 컨택스트에 대해 알아보자
+
+### 영속성 컨택스트 
+
+* JPA를 이해하는데 가장 중요한 용어
+* 엔티티를 영구 저장하는 환경이라는 뜻
+* EntityManager.persist(entity);
+
+영속성 컨택스트는 논리적인 개념으로 눈에 보이지 않는다. 엔티티 메니저를 통해서 접근을 한다.
+
+#### 엔티티의 생명주기
+
+![image](https://user-images.githubusercontent.com/53935439/155361870-9992a0d9-fb48-4be5-9650-d06a8fd43825.png)
+
+엔티티의 생명주기는 다음과 같이 4 가지로 분류된다.
+
+* 비영속 : 영속성 컨텐스트와 전혀 관계가 없는 새로운 상태
+
+```
+Member member = new Member();
+member.setId("1");
+member.setName("회원1");
+```
+
+* 영속 : 영속성 컨텍스트에 관리되는 상태
+
+```
+// 비영속 상태
+Member member = new Member();
+member.setId("1");
+member.setName("회원1");
+
+EntityManager em = emf.createEntityManager();
+em.getTransaction().begin();
+
+// 영속상태
+em.persist(member);
+```
+
+* 준영속 : 영속성 컨테스트에 저장되었다가 분리된 상태
+
+```
+em.detach(member);
+```
+
+* 삭제 : 삭제된 상태
+
+```
+em.remove(member);
+```
+
+#### 영속성 컨텍스트의 이점
+
+* 1차 캐시
+
+![image](https://user-images.githubusercontent.com/53935439/155363295-d1a45364-f71c-43b4-a567-cefe4c18d837.png)
+
+```
+Member member = new Member();
+member.setId(1);
+member.setName("member1");
+
+// 1차 캐시에 저장
+em.persist(member);
+
+// 1차 캐시에서 조회
+Member findMember = em.find(Member.class, "member1");
+```
+
+만약 조회시 1차 캐시에 존재하지 않을 경우 그 때 비로소 DB에 select 문을 통해 접근해서 값을 찾는다. 약간의 조회 성능 향상..
+
+* 영속성 엔티티의 동일성 보장
+
+```
+Member a = em.find(Member.class, "member1");
+member b = em.find(Member.class, "member1");
+
+System.out.println(a == b); // true
+```
+
+* 트랜잭션을 지원하는 쓰기 지연
+
+```
+transaction.begin(); // 엔티티 메니저는 데이터 변경시 트랜잭션을 시작해야 한다.
+
+em.persist(memberA);
+em.persist(memberB);
+// 여기까지는 DB에 SQL을 보내지 않고 영속 상태에 머무른다.
+
+transaction.commit(); // 커밋하는 순간에 DB에 SQL을 보낸다.
+```
+
+
+![image](https://user-images.githubusercontent.com/53935439/155364236-b31a9136-d872-4b5a-8f5b-f1975a587bb6.png)
+
+![image](https://user-images.githubusercontent.com/53935439/155364357-6f25e8c7-b75f-4c30-882f-4aae33c8d019.png)
+
+쓰기 지연을 통해서 그때 그때 DB에 접근해서 쿼리를 날리는게 아니라 한번에 날림
+
+아래와 같은 설정을 통해서 최대 배치 사이즈를 조절할 수 있음(한번에 보낼 최대 배치 쿼리 수)
+```xml
+<property name="hibernate.jdbc.batch_size" value="10"/>  
+```
+
+* 변경 감지
+
+![image](https://user-images.githubusercontent.com/53935439/155365471-bd4253b0-a6b2-47de-8ecb-96ab3f8374bf.png)
+
+엔티티를 조회하고 수정을 한 다음 따로 update를 하지 않아도 1차 캐시에서 스냅샷을 통해 변경이 발생하는 경우에만 update 쿼리를 날려서 변경해줌
