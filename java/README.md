@@ -608,22 +608,50 @@ super()
 
 <details>
 <summary>
+import 문에 대해 설명
 </summary>
 
 ----
 
+소스 코드를 작성할 때 다른 패키지의 클래스를 사용하려면 **패키지명이 포함된 클래스 이름**을 사용해야 한다.
 
+import 문을 사용하면 이러한 수고를 덜어줄 수 있으며 
+
+- import 패키지명.클래스명
+- import 패키지명
+
+과 같은 형태로 사용한다.
+
+또한 import 패키지명.* 과 같은 형태로 자주 사용하는 것을 볼 수 있는데 이는 지정된 패키지의 모든 클래스를 패키지명 없이 사용할 수 있으며 실행 시 성능 차이는 없다.
+
+하지만 이와 같이 선언하면 import 하는 패키지의 수가 많을 경우 어느 클래스가 어느 패키지에 속하는지 구별하기 어렵다는 단점을 가지고 있다.
 
 ----
 </details>
 
 <details>
 <summary>
+static import 문에 대해 설명
 </summary>
 
 ----
 
+> static 멤버를 호출할 때 사용
 
+ex)
+
+````java
+import static java.lang.Math.*;
+import static java.lang.System.out;
+class Ex{
+    public static void main(String[] args) {
+        System.out.println(random()); // Math.random()
+        out.println();
+    }
+}
+````
+
+특정 클래스의 static 멤버를 자주 사용할 때 편리하다.
 
 ----
 </details>
