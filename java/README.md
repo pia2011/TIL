@@ -658,6 +658,41 @@ class Ex{
 
 <details>
 <summary>
+접근 제어자에 대해 설명
+</summary>
+
+----
+
+private, default, protected, public 이렇게 4가지가 존재한다.
+
+사용하는 이유는 다음과 같다.
+- 클래스 내부에 선언된 데이터를 보호하기 위해 ( 외부에서 함부로 변경 못하도록 )
+- 클래스 내에서만 사용되는 멤버들을 감추어 복잡성을 줄이기 위해
+
+우리는 이러한 이유들로 접근 범위를 최소화해야한다.
+
+----
+</details>
+
+<details>
+<summary>
+생성자를 private으로 선언하면 어떻게 되는지 설명
+</summary>
+
+----
+
+클래스 내부에서만 인스턴스를 생성할 수 있게된다. 즉 외부에서 생성자를 통해 인스턴스를 생성할 수 없게 된다.
+
+이를 이용하여 public 메서드를 통해서만 인스턴스에 접근할 수 있도록 하여 인스턴스 개수를 제한하는 싱글톤 패턴 등에 사용되기도 한다.
+
+추가적으로 private 생성자를 가진 클래스는 자손 클래스를 둘 수 없다. 따라서 class 앞에 final 을 붙여 명시적으로 상속할 수 없는 클래스 임을 알려주는 것이 좋다.
+
+----
+</details>
+
+<details>
+<summary>
+다형성에 대해 설명
 </summary>
 
 ----
@@ -667,8 +702,101 @@ class Ex{
 ----
 </details>
 
+<details>
+<summary>
+
+</summary>
+
+----
 
 
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
+
+<details>
+<summary>
+
+</summary>
+
+----
+
+
+
+----
+</details>
 
 
 
